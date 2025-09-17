@@ -1,0 +1,25 @@
+/* Basisstijl */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background: #fdfdfd;
+    color: #333;
+}
+
+header {
+    background: #ffdecc;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background: #f9c7ac;
+    padding: 10px;
+    text-align: center;
+}
