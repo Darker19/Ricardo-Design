@@ -232,6 +232,9 @@ body {
     margin-right: auto;
 }
 
+.container.hero-grid {
+    max-width: 900px;
+}
 
 .hero {
     padding-top: 4.5rem;

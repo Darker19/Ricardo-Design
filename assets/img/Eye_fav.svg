@@ -25,7 +25,7 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="1.0396254"
-     inkscape:cx="-543.46498"
+     inkscape:cx="-542.5031"
      inkscape:cy="13.947331"
      inkscape:window-width="5120"
      inkscape:window-height="1369"
@@ -3211,7 +3211,7 @@
     <path
        id="path148"
        d="m 0,0 c 0,-1.815 -1.92,-3.286 -4.29,-3.286 -2.37,0 -4.29,1.471 -4.29,3.286 0,1.815 1.92,3.286 4.29,3.286 C -1.92,3.286 0,1.815 0,0"
-       style="display:none;fill:#f4f4f5;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="display:inline;fill:#f4f4f5;fill-opacity:1;fill-rule:nonzero;stroke:none"
        transform="matrix(0.42300546,0,0,-0.42300546,124.99995,159.47089)"
        clip-path="url(#clipPath149)" />
   </g>
