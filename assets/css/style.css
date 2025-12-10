@@ -6,17 +6,17 @@
     /* kleuren – CREATIVE (paars) */
     --color-bg-body: #000000;
     --color-bg-section: #fdfbff;
-    --color-bg-card: #ffffff;
+    --color-bg-card: #020007;
     --color-border-subtle: #e5d9ff;
     --color-text-main: #ffffff;
     --color-text-muted: #ffffff;
-    --color-accent: #FF0000;
+    --color-accent: #9678ffe6;
     --color-text: #ffffff;
     --color-bg: #000000;
 
     /* rood */
     /* paars */
-    --color-accent-soft: #f3e8ff;
+    --color-accent-soft: #ffffff11;
     /* lichtpaars */
 
     /* layout */
@@ -57,28 +57,37 @@ body {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 1.5rem;
+
 }
 
 .section {
     padding: 4rem 0;
+
 }
 
 .section-header {
     margin-bottom: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* center de children horizontaal */
 }
+
+.section-subtitle {
+    margin: 0 auto;
+    /* zorg dat het blok zelf ook center staat */
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    max-width: 32rem;
+}
+
 
 .section-header.center {
     text-align: center;
 }
 
-.section-kicker {
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-size: 0.75rem;
-    color: var(--color-accent);
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-}
+
 
 .section-header h2 {
     margin: 0 0 0.4rem;
@@ -86,17 +95,6 @@ body {
     letter-spacing: -0.02em;
 }
 
-.section-subtitle {
-    margin: 0;
-    font-size: 0.95rem;
-    color: var(--color-muted);
-    max-width: 32rem;
-}
-
-.section-header.center .section-subtitle {
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .narrow {
     max-width: 780px;
@@ -228,8 +226,8 @@ body {
    Hero
    ========== */
 .section.hero {
-    min-height: calc(100vh - 80px);
-    /* 80px ≈ navbar hoogte, pas aan als nodig */
+    min-height: calc(50vh - 50px);
+    /* 50px ≈ navbar hoogte, pas aan als nodig */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -319,7 +317,56 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
+    position: relative;
+    overflow: visible;
+    /* zoals bij de knop */
+    isolation: isolate;
+    /* zodat glow niet onder andere dingen kruipt */
+    --x: 50%;
+    --y: 50%;
 }
+
+/* inhoud altijd boven de glow */
+.card * {
+    position: relative;
+    z-index: 2;
+}
+
+/* 🌟 zelfde halo als de knop, maar opgeschaald voor een kaart */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: -18px;
+    /* iets groter dan -10px voor een grotere kaart */
+    border-radius: inherit;
+    z-index: 1;
+    pointer-events: none;
+
+    background: radial-gradient(circle at var(--x) var(--y),
+            rgba(150, 120, 255, 0.90) 0%,
+            /* lichte kern (zelfde als knop) */
+            rgba(110, 70, 255, 0.55) 35%,
+            /* middenblend */
+            rgba(76, 29, 149, 0.35) 65%,
+            /* rand blendkleur */
+            rgba(14, 0, 37, 0) 100%
+            /* fade volledig weg */
+        );
+
+    filter: blur(18px);
+    /* iets meer blur omdat de shape groter is */
+    opacity: 0;
+    transition: opacity 0.35s ease-out;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+
+
+
+
 
 .card-icon {
     width: 30px;

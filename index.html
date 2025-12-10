@@ -49,7 +49,7 @@
 
                         <div class="hero-actions">
                             <a href="#portfolio" class="gradient-btn"><span>Bekijk voorbeelden</span></a>
-                            <a href="#contact" class="gradient-btn"><span>Samen iets moois maken</span></a>
+                            <!-- <a href="#contact" class="gradient-btn"><span>Samen iets moois maken</span></a> -->
                         </div>
                     </div>
                 </div>
@@ -59,43 +59,42 @@
             <section class="section" id="diensten">
                 <div class="container">
                     <header class="section-header">
-                        <p class="section-kicker">Diensten</p>
-                        <h2 class="section-title">Online zichtbaarheid in jouw stijl</h2>
+                        <h2 class="section-title">Diensten</h2>
                         <p class="section-subtitle">
-                            Geen standaard grijze blokken, maar een lichte, speelse website die
-                            past bij je foto’s, huisstijl en persoonlijkheid.
+                            Kleine aanpassingen of een complete one-page website? Hieronder
+                            vind je een overzicht van de mogelijkheden.
                         </p>
                     </header>
 
-                    <div class="cards-3">
+                    <div class="cards">
                         <article class="card">
-                            <div class="card-icon">A</div>
-                            <h3 class="card-title">One-page website</h3>
-                            <p class="card-text">
-                                Een creatieve 1-pager met ruimte voor jouw verhaal, beelden, aanbod
-                                en duidelijke call-to-action.
-                            </p>
-                            <p class="card-meta">Vanaf € 100,-</p>
-                        </article>
-
-                        <article class="card">
-                            <div class="card-icon">B</div>
-                            <h3 class="card-title">Branding doorvertalen</h3>
-                            <p class="card-text">
-                                Kleuren, fonts en accenten afgestemd op je logo en bestaande huisstijl,
-                                zodat alles als één geheel voelt.
-                            </p>
-                            <p class="card-meta">Prijs in overleg</p>
-                        </article>
-
-                        <article class="card">
-                            <div class="card-icon">C</div>
+                            <div class="card-icon">1</div>
                             <h3 class="card-title">Mini-aanpassingen</h3>
                             <p class="card-text">
                                 Teksten bijwerken, nieuwe foto’s plaatsen, een extra blok toevoegen
                                 of je aanbod actualiseren.
                             </p>
-                            <p class="card-meta">Kleine updates vanaf € 25,-</p>
+                            <p class="card-meta">Vanaf € 25,-</p>
+                        </article>
+
+                        <article class="card">
+                            <div class="card-icon">2</div>
+                            <h3 class="card-title">Huisstijl</h3>
+                            <p class="card-text">
+                                Visitekaart, social media templates, briefpapier of een
+                                compleet stijlpakket voor jouw merk.
+                            </p>
+                            <p class="card-meta">Prijs in overleg</p>
+                        </article>
+
+                        <article class="card">
+                            <div class="card-icon">3</div>
+                            <h3 class="card-title">Website template</h3>
+                            <p class="card-text">
+                                Teksten bijwerken, nieuwe foto’s plaatsen, een extra blok toevoegen
+                                of je aanbod actualiseren.
+                            </p>
+                            <p class="card-meta">Vanaf € 100,-</p>
                         </article>
                     </div>
                 </div>
@@ -207,7 +206,7 @@
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
     <script>
-        const buttons = document.querySelectorAll(".gradient-btn");
+        const buttons = document.querySelectorAll(".gradient-btn, .card");
 
         buttons.forEach((btn) => {
 
@@ -235,7 +234,6 @@
         });
 
     </script>
-
 </body>
 
 </html>
