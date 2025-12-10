@@ -4,13 +4,16 @@
 
 :root {
     /* kleuren – CREATIVE (paars) */
-    --color-bg-body: #f8f5ff;
+    --color-bg-body: #0e0025;
     --color-bg-section: #fdfbff;
     --color-bg-card: #ffffff;
     --color-border-subtle: #e5d9ff;
-    --color-text-main: #1f1235;
-    --color-text-muted: #7a6c98;
+    --color-text-main: #ffffff;
+    --color-text-muted: #ffffff;
     --color-accent: #FF0000;
+    --color-text: #ffffff;
+    --color-bg: #0e0025;
+
     /* rood */
     /* paars */
     --color-accent-soft: #f3e8ff;
@@ -103,8 +106,8 @@ body {
    Header / nav
    ========== */
 .eye-fav {
-    width: 32px;
-    height: 32px;
+    width: 120px;
+    height: 60px;
 }
 
 .site-header {
@@ -112,8 +115,7 @@ body {
     top: 0;
     z-index: 20;
     backdrop-filter: blur(14px);
-    background: rgba(244, 245, 247, 0.92);
-    border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+    background: #0e0025;
 }
 
 .nav {
@@ -158,17 +160,16 @@ body {
     padding: 0.35rem 0.7rem;
     border-radius: 999px;
     color: var(--color-muted);
-    transition: background 0.15s ease, color 0.15s ease;
 }
 
-.nav-links a:hover {
+/* .nav-links a:hover {
     background: var(--color-accent-soft);
     color: var(--color-accent);
-}
+} */
 
-.btn-nav {
+/* .btn-nav {
     display: none;
-}
+} */
 
 /* Toon volledige nav pas op grotere schermen */
 @media (min-width: 768px) {
@@ -629,4 +630,72 @@ textarea {
 
 .footer-links a:hover {
     text-decoration: underline;
+}
+
+/* ==========
+   Menu knop met gradient hover effect
+   ========== */
+
+
+/* ---- De knop zelf ---- */
+.gradient-btn {
+    --x: 50%;
+    --y: 50%;
+
+    position: relative;
+    padding: 12px 28px;
+    border-radius: 999px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+
+    background: transparent;
+    /* 🔥 geen harde kleur meer */
+    border: none;
+
+    overflow: visible;
+    isolation: isolate;
+    /* 🔥 zorgt dat ::before NIET onder de header verdwijnt */
+}
+
+/* tekst altijd boven */
+.gradient-btn span {
+    position: relative;
+    z-index: 2;
+}
+
+/* 🌟 zachte halo + zachte knopranden */
+.gradient-btn::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    /* groter → zachtere edges 360° */
+    border-radius: inherit;
+    z-index: 1;
+    /* blijft BOVEN de header door isolation */
+    pointer-events: none;
+
+    background: radial-gradient(circle at var(--x) var(--y),
+            rgba(150, 120, 255, 0.90) 0%,
+            /* lichte kern */
+            rgba(110, 70, 255, 0.55) 35%,
+            /* middenblend */
+            rgba(76, 29, 149, 0.35) 65%,
+            /* rand blendkleur */
+            rgba(14, 0, 37, 0) 100%
+            /* fade volledig weg */
+        );
+
+    filter: blur(16px);
+    opacity: 0;
+    /* 🔥 standaard volledig onzichtbaar */
+    transition: opacity 0.35s ease-out;
+}
+
+.gradient-btn:hover::before {
+    opacity: 1;
+    filter: blur(16px);
 }

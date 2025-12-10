@@ -14,15 +14,15 @@
         <header class="site-header">
             <div class="container nav">
                 <div class="nav-brand">
-                    <img src="assets/img/Eye_fav.svg" class="eye-fav">
+                    <img src="assets/img/eye_only_full_transparent.png" class="eye-fav">
                     <span class="nav-title">Ricardo Design</span>
                 </div>
 
                 <nav class="nav-links">
-                    <a href="#diensten">Diensten</a>
-                    <a href="#over">Over</a>
-                    <a href="#portfolio">Portfolio</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#diensten" class="gradient-btn"><span>Diensten</span></a>
+                    <a href="#over" class="gradient-btn"><span>Over</span></a>
+                    <a href="#portfolio" class="gradient-btn"><span>Portfolio</span></a>
+                    <a href="#contact" class="gradient-btn"><span>Contact</span></a>
                 </nav>
 
                 <a href="#contact" class="nav-cta">Plan een call</a>
@@ -32,7 +32,7 @@
         <main>
             <!-- HERO -->
             <section class="section hero">
-                <img src="assets/img/Logo.svg" class="center-img">
+                <img src="assets/img/large_1200.png" class="center-img">
                 <div class="container hero-grid">
                     <div class="hero-text">
                         <!-- <div class="badge">
@@ -253,6 +253,35 @@
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+    <script>
+        const buttons = document.querySelectorAll(".gradient-btn");
+
+        buttons.forEach((btn) => {
+
+            btn.addEventListener("mousemove", (e) => {
+                const rect = btn.getBoundingClientRect();
+
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                btn.style.setProperty("--x", x + "%");
+                btn.style.setProperty("--y", y + "%");
+            });
+
+            btn.addEventListener("mouseleave", () => {
+                // 1) Verberg de gradient meteen (opacity wordt 0 via CSS)
+                btn.classList.add("fading-out");
+
+                // 2) Wacht tot fade-out klaar is, dán pas resetten
+                setTimeout(() => {
+                    btn.style.setProperty("--x", "50%");
+                    btn.style.setProperty("--y", "50%");
+                    btn.classList.remove("fading-out");
+                }, 250); // match met CSS transition van opacity (0.25s)
+            });
+        });
+
     </script>
 </body>
 
