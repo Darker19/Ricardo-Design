@@ -43,6 +43,8 @@ body {
     line-height: 1.6;
 }
 
+
+
 /* ==========
    Layout helpers
    ========== */
@@ -51,6 +53,14 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.page,
+header,
+main,
+.section {
+    position: relative;
+    z-index: 1;
 }
 
 .container {

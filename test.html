@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Paarse nebula achtergrond</title>
+    <style>
+        /* Donkere basisachtergrond */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            background: #050014;
+            color: #fff;
+            font-family: system-ui, sans-serif;
+        }
+
+        /* Nebula-laag */
+        .nebula {
+            position: fixed;
+            inset: -10%;
+            /* iets groter dan het scherm */
+            z-index: 0;
+            pointer-events: none;
+
+            background:
+                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.70), transparent 60%),
+                radial-gradient(circle at 80% 30%, rgba(1, 1, 5, 0.6), transparent 60%),
+                radial-gradient(circle at 30% 80%, rgba(147, 51, 234, 0.70), transparent 65%),
+                radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.55), transparent 70%),
+                radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.9), #020012 70%, #000 100%);
+
+            background-blend-mode: screen;
+            opacity: 0.9;
+
+            /* eerst duidelijk zichtbaar laten bewegen */
+            animation: nebulaDrift 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes nebulaDrift {
+            from {
+                transform: translate3d(-3%, -3%, 0) scale(1);
+                filter: blur(0px);
+            }
+
+            to {
+                transform: translate3d(3%, 3%, 0) scale(1.05);
+                filter: blur(1px);
+            }
+        }
+
+        /* Demo content */
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nebula"></div>
+
+    <div class="content">
+        <h1>Paarse nebula ✨</h1>
+        <p>Deze paarse gloed hoort langzaam te ademen / schuiven op de achtergrond.</p>
+    </div>
+</body>
+
+</html>
