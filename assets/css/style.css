@@ -4,7 +4,7 @@
 
 :root {
     /* kleuren – CREATIVE (paars) */
-    --color-bg-body: #0e0025;
+    --color-bg-body: #000000;
     --color-bg-section: #fdfbff;
     --color-bg-card: #ffffff;
     --color-border-subtle: #e5d9ff;
@@ -12,7 +12,7 @@
     --color-text-muted: #ffffff;
     --color-accent: #FF0000;
     --color-text: #ffffff;
-    --color-bg: #0e0025;
+    --color-bg: #000000;
 
     /* rood */
     /* paars */
@@ -106,7 +106,7 @@ body {
    Header / nav
    ========== */
 .eye-fav {
-    width: 120px;
+    width: 60px;
     height: 60px;
 }
 
@@ -115,7 +115,7 @@ body {
     top: 0;
     z-index: 20;
     backdrop-filter: blur(14px);
-    background: #0e0025;
+    background: #000000;
 }
 
 .nav {
@@ -150,7 +150,7 @@ body {
 }
 
 .nav-links {
-    display: none;
+    align-content: center;
     gap: 1rem;
     font-size: 0.9rem;
 }
@@ -161,6 +161,8 @@ body {
     border-radius: 999px;
     color: var(--color-muted);
 }
+
+
 
 /* .nav-links a:hover {
     background: var(--color-accent-soft);
@@ -186,7 +188,7 @@ body {
    Buttons
    ========== */
 
-.btn {
+/* .btn {
     border-radius: 999px;
     border: none;
     font-family: inherit;
@@ -220,21 +222,32 @@ body {
 .btn-ghost:hover {
     background: #ffffff;
     box-shadow: var(--shadow-card);
-}
+} */
 
 /* ==========
    Hero
    ========== */
+.section.hero {
+    min-height: calc(100vh - 80px);
+    /* 80px ≈ navbar hoogte, pas aan als nodig */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+}
 
 .center-img {
     display: block;
-    /* img is standaard inline → block nodig */
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 32px auto;
+    /* centreren + ruimte onder het oog */
+    max-width: 600px;
+    height: auto;
 }
 
 .container.hero-grid {
-    max-width: 900px;
+    max-width: 100%;
+    align-items: center;
 }
 
 .hero {
@@ -242,8 +255,10 @@ body {
 }
 
 .hero-grid {
-    display: grid;
-    gap: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    /* oog boven, tekst eronder */
+    align-items: center;
 }
 
 @media (min-width: 900px) {
@@ -271,151 +286,12 @@ body {
     flex-wrap: wrap;
     gap: 0.8rem;
     margin: 1.3rem 0 0.9rem;
+    text-decoration: none;
+    justify-content: center;
 }
 
-.hero-meta {
-    font-size: 0.86rem;
-    color: var(--color-muted);
-}
-
-.meta-highlight {
-    color: var(--color-accent);
-    font-weight: 500;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: var(--color-accent-soft);
-    color: var(--color-accent);
-    padding: 0.25rem 0.8rem;
-    border-radius: 999px;
-    font-size: 0.8rem;
-    margin-bottom: 1rem;
-}
-
-.badge-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: var(--color-accent);
-}
-
-/* Hero kaart rechts */
-
-.hero-card {
-    background: var(--color-surface);
-    border-radius: 22px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(229, 231, 235, 0.9);
-}
-
-.hero-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    gap: 1rem;
-}
-
-.hero-card-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-}
-
-.hero-card-subtitle {
-    font-size: 0.8rem;
-    color: var(--color-muted);
-}
-
-.hero-pill {
-    font-size: 0.8rem;
-    padding: 0.2rem 0.7rem;
-    border-radius: 999px;
-    background: rgba(37, 99, 235, 0.08);
-    color: var(--color-accent);
-}
-
-/* Kleine mockup */
-
-.hero-mockup {
-    border-radius: 16px;
-    border: 1px solid var(--color-border);
-    overflow: hidden;
-    background: #f9fafb;
-    margin-bottom: 1rem;
-}
-
-.mockup-bar {
-    height: 9px;
-    background: linear-gradient(to right, #e5e7eb, #d1d5db);
-}
-
-.mockup-body {
-    padding: 0.9rem;
-    display: grid;
-    gap: 0.5rem;
-}
-
-.mockup-title {
-    height: 16px;
-    width: 60%;
-    border-radius: 999px;
-    background: #e5e7eb;
-}
-
-.mockup-line {
-    height: 10px;
-    border-radius: 999px;
-    background: #e5e7eb;
-}
-
-.mockup-line.w-70 {
-    width: 70%;
-}
-
-.mockup-line.w-50 {
-    width: 50%;
-}
-
-.mockup-cards {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.5rem;
-    margin-top: 0.4rem;
-}
-
-.mockup-card {
-    height: 56px;
-    border-radius: 12px;
-    background: #e5e7eb;
-}
-
-/* Stats onder de mockup */
-
-.hero-stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
-    font-size: 0.82rem;
-}
-
-.stat {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 0.75rem;
-    border: 1px solid var(--color-border);
-}
-
-.stat-label {
-    color: var(--color-muted);
-    margin-bottom: 0.15rem;
-}
-
-.stat-value {
-    font-weight: 600;
+.hero-actions a {
+    text-decoration: none;
 }
 
 /* ==========
