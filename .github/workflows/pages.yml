@@ -16,10 +16,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
+      # De preview hoort niet in Google: alleen deze kopie krijgt noindex, darkesttimes.nl niet
+      - name: Preview klaarzetten (noindex)
+        run: |
+          rsync -a --exclude='.git*' --exclude='.github' --exclude='_site' ./ _site/
+          find _site -name '*.html' -exec sed -i 's#<head>#<head>\n    <meta name="robots" content="noindex, nofollow">#' {} +
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: .  # hele repo (index.html + assets)
+          path: _site
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v5

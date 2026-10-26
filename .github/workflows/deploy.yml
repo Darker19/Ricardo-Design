@@ -24,7 +24,8 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
 
       # De sleutel mag op de server alleen rsync naar /srv/web/sites/darkesttimes (rrsync).
+      # test.html is alleen voor de preview; --delete-excluded haalt hem ook van de server weg.
       - name: Naar de VPS kopiëren
         run: |
-          rsync -rlptvz --delete --exclude ".git*" --exclude ".github" \
+          rsync -rlptvz --delete --delete-excluded --exclude ".git*" --exclude ".github" --exclude "test.html" \
             ./ deploy@57.131.129.159:/
