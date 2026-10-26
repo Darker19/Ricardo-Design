@@ -1,0 +1,30 @@
+name: Deploy website
+
+on:
+  push:
+    branches: [ main ]   # alleen bij push naar main
+  workflow_dispatch:      # handmatig starten mogelijk
+
+concurrency: deploy      # nooit twee deploys tegelijk
+
+jobs:
+  deploy:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: SSH-sleutel klaarzetten
+        run: |
+          install -m 700 -d ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519
+
+      # De sleutel mag op de server alleen rsync naar /srv/web/sites/darkesttimes (rrsync).
+      - name: Naar de VPS kopiëren
+        run: |
+          rsync -rlptvz --delete --exclude ".git*" --exclude ".github" \
+            ./ deploy@57.131.129.159:/

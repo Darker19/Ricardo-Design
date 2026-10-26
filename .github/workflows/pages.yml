@@ -2,7 +2,7 @@ name: Deploy website
 
 on:
   push:
-    branches: [ main ]   # alleen bij push naar main
+    branches: [ preview ]   # preview op GitHub Pages; main gaat live naar de VPS (deploy.yml)
   workflow_dispatch:      # handmatig starten mogelijk
 
 jobs:
