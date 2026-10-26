@@ -5,23 +5,32 @@
     <meta charset="UTF-8">
     <title>Darkesttimes Design – Creatieve one-page website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Darkesttimes Design: kleine, snelle HTML- en CSS-aanpassingen, huisstijl en one-page websites voor ondernemers.">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
     <div class="nebula"></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
     <div class="page">
 
         <header class="site-header">
             <div class="container nav">
-                <div class="nav-brand">
-                    <img src="assets/img/Eye_full.svg" class="eye-fav">
+                <a href="#home" class="nav-brand">
+                    <img src="assets/img/eye.svg" class="eye-fav" alt="">
                     <span class="nav-title">Darkesttimes Design</span>
-                </div>
+                </a>
 
-                <nav class="nav-links">
+                <!-- Op mobiel klapt het menu uit via deze knop -->
+                <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu openen">
+                    <span></span>
+                </button>
+
+                <nav class="nav-links" id="menu">
                     <a href="#diensten" class="gradient-btn"><span>Diensten</span></a>
-                    <a href="#over" class="gradient-btn"><span>Over</span></a>
+                    <a href="#home" class="gradient-btn"><span>Over</span></a>
                     <a href="#portfolio" class="gradient-btn"><span>Portfolio</span></a>
                     <a href="#contact" class="gradient-btn"><span>Contact</span></a>
                 </nav>
@@ -30,9 +39,9 @@
 
         <main>
             <!-- HERO -->
-            <section class="section hero">
+            <section class="section hero" id="home">
                 <div class="container hero-grid">
-                    <img src="assets/img/Eye_full.svg" class="center-img">
+                    <img src="assets/img/eye.svg" class="center-img" alt="Het oog van Darkesttimes Design">
                     <div class="hero-text">
                         <!-- <div class="badge">
                             <span class="badge-dot"></span>
@@ -205,35 +214,91 @@
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobiel menu: openen/sluiten, en sluiten na het kiezen van een link
+        const nav = document.querySelector(".nav");
+        const toggle = document.querySelector(".nav-toggle");
+        const zetMenu = (open) => {
+            nav.classList.toggle("open", open);
+            toggle.setAttribute("aria-expanded", open);
+            toggle.setAttribute("aria-label", open ? "Menu sluiten" : "Menu openen");
+        };
+        toggle.addEventListener("click", () => zetMenu(!nav.classList.contains("open")));
+        document.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", () => zetMenu(false)));
+        document.addEventListener("keydown", (e) => { if (e.key === "Escape") zetMenu(false); });
     </script>
     <script>
-        const buttons = document.querySelectorAll(".gradient-btn, .card");
+        // Magnetische gloed: één paarse gloed volgt de muis over de hele pagina.
+        // In de buurt van kaarten, knoppen en velden wordt hij naar het element toe getrokken,
+        // en eroverheen past hij zich aan het element aan en "plakt" hij er een beetje aan.
+        // Alleen met een muis; op telefoons en bij "minder beweging" staat hij uit.
+        (() => {
+            const glow = document.querySelector(".cursor-glow");
+            const metMuis = matchMedia("(hover: hover) and (pointer: fine)").matches;
+            const rustig = matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (!glow || !metMuis || rustig) return;
 
-        buttons.forEach((btn) => {
+            const magneten = [...document.querySelectorAll(".card, .gradient-btn, .btn, .nav-brand, .footer-links a, input, textarea")];
+            const BEREIK = 110;     // vanaf deze afstand (px) begint een element te trekken
+            const TREK = 0.35;      // hoe sterk de gloed vlak naast een element naar het midden gaat
+            const VOLG_BINNEN = 0.25; // op een element volgt de gloed de muis nog maar een beetje
+            const RUST = 280;       // grootte van de gloed als hij vrij zweeft
+            const MAX = 560;        // grootste formaat op een groot element
+            const SNELHEID = 0.16;  // 0–1: hoe snel de gloed bijtrekt (lager = meer naloop)
 
-            btn.addEventListener("mousemove", (e) => {
-                const rect = btn.getBoundingClientRect();
+            const muis = { x: innerWidth / 2, y: innerHeight / 2 };
+            const nu = { x: muis.x, y: muis.y, w: RUST, h: RUST };
+            let bezig = false;
 
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
+            function doel() {
+                let beste = null, besteAfstand = Infinity;
+                for (const el of magneten) {
+                    const r = el.getBoundingClientRect();
+                    // afstand van de muis tot de rand van het element (0 = erboven)
+                    const dx = Math.max(r.left - muis.x, 0, muis.x - r.right);
+                    const dy = Math.max(r.top - muis.y, 0, muis.y - r.bottom);
+                    const d = Math.hypot(dx, dy);
+                    if (d < besteAfstand) { besteAfstand = d; beste = r; }
+                }
+                if (!beste || besteAfstand > BEREIK) return { x: muis.x, y: muis.y, w: RUST, h: RUST, vast: false };
 
-                btn.style.setProperty("--x", x + "%");
-                btn.style.setProperty("--y", y + "%");
-            });
+                const mx = beste.left + beste.width / 2, my = beste.top + beste.height / 2;
+                if (besteAfstand === 0) {
+                    return {
+                        x: mx + (muis.x - mx) * VOLG_BINNEN,
+                        y: my + (muis.y - my) * VOLG_BINNEN,
+                        w: Math.min(beste.width + 70, MAX),
+                        h: Math.min(beste.height + 70, MAX),
+                        vast: true,
+                    };
+                }
+                const s = (1 - besteAfstand / BEREIK) ** 2 * TREK;
+                return { x: muis.x + (mx - muis.x) * s, y: muis.y + (my - muis.y) * s, w: RUST, h: RUST, vast: false };
+            }
 
-            btn.addEventListener("mouseleave", () => {
-                // 1) Verberg de gradient meteen (opacity wordt 0 via CSS)
-                btn.classList.add("fading-out");
+            function stap() {
+                const t = doel();
+                for (const k of ["x", "y", "w", "h"]) nu[k] += (t[k] - nu[k]) * SNELHEID;
+                glow.style.width = nu.w + "px";
+                glow.style.height = nu.h + "px";
+                glow.style.transform = `translate3d(${nu.x - nu.w / 2}px, ${nu.y - nu.h / 2}px, 0)`;
+                glow.classList.toggle("vast", t.vast);
 
-                // 2) Wacht tot fade-out klaar is, dán pas resetten
-                setTimeout(() => {
-                    btn.style.setProperty("--x", "50%");
-                    btn.style.setProperty("--y", "50%");
-                    btn.classList.remove("fading-out");
-                }, 250); // match met CSS transition van opacity (0.25s)
-            });
-        });
+                const klaar = ["x", "y", "w", "h"].every((k) => Math.abs(t[k] - nu[k]) < 0.3);
+                if (klaar) { bezig = false; return; }
+                requestAnimationFrame(stap);
+            }
+            const start = () => { if (!bezig) { bezig = true; requestAnimationFrame(stap); } };
 
+            addEventListener("mousemove", (e) => {
+                muis.x = e.clientX; muis.y = e.clientY;
+                glow.classList.add("zichtbaar");
+                start();
+            }, { passive: true });
+            // bij scrollen verschuiven de elementen onder de muis
+            addEventListener("scroll", start, { passive: true });
+            document.documentElement.addEventListener("mouseleave", () => glow.classList.remove("zichtbaar"));
+        })();
     </script>
 </body>
 
