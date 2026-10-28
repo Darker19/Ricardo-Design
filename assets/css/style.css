@@ -789,6 +789,120 @@ textarea {
 }
 
 /* ==========
+   Over + werkwijze
+   ========== */
+
+.over-grid {
+    display: grid;
+    gap: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .over-grid {
+        grid-template-columns: 1.1fr 1fr;
+        align-items: start;
+    }
+}
+
+.over-text p {
+    margin: 0 0 1rem;
+    color: var(--color-muted);
+    line-height: 1.65;
+}
+
+.steps {
+    list-style: none;
+    counter-reset: stap;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem;
+}
+
+.steps li {
+    counter-increment: stap;
+    position: relative;
+    padding: 0.9rem 1rem 0.9rem 3.4rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-muted);
+    font-size: 0.95rem;
+}
+
+.steps li::before {
+    content: counter(stap);
+    position: absolute;
+    left: 1rem;
+    top: 0.9rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: var(--color-accent-soft);
+    border: 1px solid var(--color-border);
+    color: var(--color-accent);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.steps strong {
+    display: block;
+    color: var(--color-text);
+}
+
+/* ==========
+   Veelgestelde vragen
+   ========== */
+
+.faq {
+    max-width: 760px;
+    margin: 0 auto;
+    display: grid;
+    gap: 0.7rem;
+}
+
+.faq details {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0 1.1rem;
+}
+
+.faq summary {
+    cursor: pointer;
+    padding: 1rem 0;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq summary::after {
+    content: "+";
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.faq details[open] summary::after {
+    content: "–";
+}
+
+.faq details p {
+    margin: 0 0 1rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+}
+
+/* ==========
    Footer
    ========== */
 
