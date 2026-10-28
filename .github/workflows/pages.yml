@@ -19,7 +19,7 @@ jobs:
       # De preview hoort niet in Google: alleen deze kopie krijgt noindex, darkesttimes.nl niet
       - name: Preview klaarzetten (noindex)
         run: |
-          rsync -a --exclude='.git*' --exclude='.github' --exclude='_site' ./ _site/
+          rsync -a --exclude='.git*' --exclude='.github' --exclude='server' --exclude='_site' ./ _site/
           find _site -name '*.html' -exec sed -i 's#<head>#<head>\n    <meta name="robots" content="noindex, nofollow">#' {} +
 
       - name: Upload artifact

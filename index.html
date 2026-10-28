@@ -163,36 +163,40 @@
                             </p>
                         </header>
 
-                        <form class="contact-form">
+                        <form class="contact-form" action="/api/contact" method="post">
                             <label class="field">
                                 <span class="field-label">Naam</span>
-                                <input type="text" name="naam" placeholder="Je naam">
+                                <input type="text" name="naam" placeholder="Je naam" required maxlength="100" autocomplete="name">
                             </label>
                             <label class="field">
                                 <span class="field-label">E-mail</span>
-                                <input type="email" name="email" placeholder="jij@voorbeeld.nl">
+                                <input type="email" name="email" placeholder="jij@voorbeeld.nl" required maxlength="200" autocomplete="email">
                             </label>
                             <label class="field">
                                 <span class="field-label">Branche</span>
-                                <input type="text" name="branche" placeholder="Bijv. fotograaf, coach, salon...">
+                                <input type="text" name="branche" placeholder="Bijv. fotograaf, coach, salon..." maxlength="100">
                             </label>
                             <label class="field">
                                 <span class="field-label">Vertel iets over je idee</span>
-                                <textarea name="bericht" placeholder="Wat voor website heb je in gedachten?"></textarea>
+                                <textarea name="bericht" placeholder="Wat voor website heb je in gedachten?" required maxlength="5000"></textarea>
                             </label>
-                            <button class="btn btn-primary" type="submit">Stuur je idee (voorbeeld)</button>
+                            <!-- Onzichtbaar veld tegen spambots: mensen laten dit leeg -->
+                            <label class="field-honeypot" aria-hidden="true">
+                                Website <input type="text" name="website" tabindex="-1" autocomplete="off">
+                            </label>
+                            <button class="btn btn-primary" type="submit">Stuur je idee</button>
+                            <p class="form-status" role="status" aria-live="polite"></p>
                         </form>
                     </div>
 
                     <aside class="contact-aside">
                         <h3>Sneller schakelen?</h3>
                         <p>
-                            Stuur gerust een voicebericht of een paar voorbeeldsites die je mooi vindt.
+                            Mail gerust een paar voorbeeldsites die je mooi vindt.
                             Dan kan ik gericht met je meedenken.
                         </p>
                         <ul class="contact-list">
-                            <li><span>WhatsApp:</span> 06 – 000 000 00</li>
-                            <li><span>E-mail:</span> studio@jouwdomein.nl</li>
+                            <li><span>E-mail:</span> <a href="mailto:info@darkesttimes.nl">info@darkesttimes.nl</a></li>
                             <li><span>Regio:</span> Online, Nederland</li>
                         </ul>
                     </aside>
@@ -226,6 +230,28 @@
         toggle.addEventListener("click", () => zetMenu(!nav.classList.contains("open")));
         document.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", () => zetMenu(false)));
         document.addEventListener("keydown", (e) => { if (e.key === "Escape") zetMenu(false); });
+
+        // Contactformulier: versturen zonder de pagina te verlaten (zonder JavaScript werkt het formulier ook)
+        const form = document.querySelector(".contact-form");
+        const status = form.querySelector(".form-status");
+        const knop = form.querySelector("button[type=submit]");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            knop.disabled = true;
+            status.className = "form-status";
+            status.textContent = "Bezig met versturen…";
+            try {
+                const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+                const data = await res.json();
+                status.textContent = data.bericht;
+                status.classList.add(data.ok ? "ok" : "fout");
+                if (data.ok) form.reset();
+            } catch {
+                status.textContent = "Versturen lukte even niet. Mail anders naar info@darkesttimes.nl.";
+                status.classList.add("fout");
+            }
+            knop.disabled = false;
+        });
     </script>
     <script>
         // Magnetische gloed: één paarse gloed volgt de muis over de hele pagina.

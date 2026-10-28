@@ -1,0 +1,3 @@
+# Contactformulier: geheimen en teller staan alleen op de server
+server/contact/.env
+server/contact/data/

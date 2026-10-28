@@ -25,7 +25,8 @@ jobs:
 
       # De sleutel mag op de server alleen rsync naar /srv/web/sites/darkesttimes (rrsync).
       # test.html is alleen voor de preview; --delete-excluded haalt hem ook van de server weg.
+      # server/ (het contactformulier) wordt apart op de server gezet, niet in de webmap.
       - name: Naar de VPS kopiëren
         run: |
-          rsync -rlptvz --delete --delete-excluded --exclude ".git*" --exclude ".github" --exclude "test.html" \
+          rsync -rlptvz --delete --delete-excluded --exclude ".git*" --exclude ".github" --exclude "test.html" --exclude "server" \
             ./ deploy@57.131.129.159:/

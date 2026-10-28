@@ -593,6 +593,42 @@ textarea {
     }
 }
 
+/* honeypot tegen spambots: buiten beeld, maar niet display:none (dat slaan slimme bots over) */
+.field-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.form-status {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-muted);
+}
+
+.form-status:empty {
+    display: none;
+}
+
+.form-status.ok {
+    color: #8ff0b4;
+}
+
+.form-status.fout {
+    color: #ff9aa8;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.contact-list a {
+    color: var(--color-text);
+}
+
 .contact-aside {
     padding: 0.5rem 0.25rem;
     color: var(--color-muted);
