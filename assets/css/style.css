@@ -433,6 +433,48 @@ main,
     }
 }
 
+/* portfolio: twee projecten naast elkaar, met een screenshot bovenaan */
+.cards-2 {
+    display: grid;
+    gap: 1.3rem;
+}
+
+@media (min-width: 768px) {
+    .cards-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.card-shot {
+    display: block;
+    margin: -0.4rem -0.4rem 0.6rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.card-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 8 / 5;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.3s ease;
+}
+
+.card-shot:hover img {
+    transform: scale(1.03);
+}
+
+a.card-meta {
+    text-decoration: none;
+}
+
+a.card-meta:hover {
+    text-decoration: underline;
+}
+
 .card {
     background: var(--color-surface);
     border-radius: var(--radius-lg);
