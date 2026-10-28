@@ -1,0 +1,5 @@
+# Alles mag geïndexeerd worden. Het contactformulier (/api/) heeft geen zin in Google.
+User-agent: *
+Disallow: /api/
+
+Sitemap: https://darkesttimes.nl/sitemap.xml
